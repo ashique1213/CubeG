@@ -95,6 +95,19 @@ export const Sidebar: React.FC<SidebarProps> = ({
           Notation
         </button>
       </div>
+
+      <div className="sidebar-divider" />
+      <div className="sidebar-footer">
+        <span>Powered by </span>
+        <a
+          href="https://questacksolutions.vercel.app"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="sidebar-footer-link"
+        >
+          QueStack Solutions
+        </a>
+      </div>
     </nav>
   );
 };

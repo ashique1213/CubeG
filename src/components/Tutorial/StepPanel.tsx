@@ -136,6 +136,18 @@ export const StepPanel: React.FC<StepPanelProps> = ({
         onNext={onNext}
         onSolveAgain={onSolveAgain}
       />
+
+      <div className="step-doc-footer">
+        <span>Powered by </span>
+        <a
+          href="https://questacksolutions.vercel.app"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="step-doc-footer-link"
+        >
+          QueStack Solutions
+        </a>
+      </div>
     </div>
   );
 };
