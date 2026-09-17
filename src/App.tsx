@@ -34,7 +34,7 @@ export const App: React.FC = () => {
   const playTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
-    if (currentStepId === 10) {
+    if (currentStepId === 9) {
       try { confetti({ particleCount: 90, spread: 80, origin: { y: 0.55 } }); }
       catch (err) { console.warn('Confetti unavailable:', err); }
     }
@@ -130,7 +130,7 @@ export const App: React.FC = () => {
     if (currentStepId === 1) return pos.y === 1 && (Math.abs(pos.x) + Math.abs(pos.z) === 1);
     if (currentStepId === 2) return pos.y === -1 && (Math.abs(pos.x) + Math.abs(pos.z) === 1);
     if (currentStepId === 3) return pos.x === 1 && pos.y === -1 && pos.z === 1;
-    if (currentStepId === 7) return pos.x === -1 && pos.y === 1 && pos.z === 1;
+    if (currentStepId === 6) return pos.x === -1 && pos.y === 1 && pos.z === 1;
     return false;
   }, [currentStepId]);
 

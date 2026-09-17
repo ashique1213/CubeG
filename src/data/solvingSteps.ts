@@ -4,7 +4,7 @@ export const SOLVING_STEPS: SolvingStep[] = [
   {
     id: 1,
     title: "Make the White Cross (The Daisy)",
-    subtitle: "Step 1 of 10",
+    subtitle: "Step 1 of 9",
     orientation: "Keep Yellow Center on Top",
     instructions: [
       "Start with the yellow center piece facing directly UP.",
@@ -25,7 +25,7 @@ export const SOLVING_STEPS: SolvingStep[] = [
   {
     id: 2,
     title: "Move the White Cross to the Bottom",
-    subtitle: "Step 2 of 10",
+    subtitle: "Step 2 of 9",
     orientation: "Keep Yellow on Top, White on Bottom",
     instructions: [
       "Look at the side color of each white petal on the top layer.",
@@ -46,7 +46,7 @@ export const SOLVING_STEPS: SolvingStep[] = [
   {
     id: 3,
     title: "Solve the White Corners",
-    subtitle: "Step 3 of 10",
+    subtitle: "Step 3 of 9",
     orientation: "Keep White Cross on Bottom, Yellow on Top",
     instructions: [
       "Keep the white cross on the bottom (Down).",
@@ -65,48 +65,29 @@ export const SOLVING_STEPS: SolvingStep[] = [
   },
   {
     id: 4,
-    title: "Middle Layer — Left",
-    subtitle: "Step 4 of 10",
+    title: "Solve the Middle Layer",
+    subtitle: "Step 4 of 9",
     orientation: "Keep White on Bottom, Yellow on Top",
     instructions: [
       "Find an edge piece on the top layer that DOES NOT have yellow on it.",
       "Match the front sticker of this edge with its center color (creating an upside-down 'T').",
-      "Look at the top sticker: if that color matches the LEFT center, the edge needs to go to the LEFT.",
-      "Execute the Middle Layer Left algorithm shown below."
+      "If top color matches LEFT center, execute Left algorithm: U' L' U L U F U' F'.",
+      "If top color matches RIGHT center, execute Right algorithm: U R U' R' U' F' U F.",
+      "Repeat for all 4 middle edges until the first two layers (F2L) are complete!"
     ],
-    algorithm: "U' L' U L U F U' F'",
-    moves: ["U'", "L'", "U", "L", "U", "F", "U'", "F'"],
-    diagramTitle: "Target Edge Moving to the Left Slot:",
+    algorithm: "Left: U' L' U L U F U' F' | Right: U R U' R' U' F' U F",
+    moves: ["U'", "L'", "U", "L", "U", "F", "U'", "F'", "U", "R", "U'", "R'", "U'", "F'", "U", "F"],
+    diagramTitle: "Target Edge Moving to Middle Slot:",
     diagramType: "middle-layer",
     tips: [
-      "Notice the pattern: first move the piece AWAY from its goal (U'), do the left trigger (L' U L), then turn toward front and do the front trigger (U F U' F').",
-      "Keep your grip firm with the matching center facing you."
+      "First move the piece AWAY from its destination, do the side trigger, then turn toward front and do the front trigger.",
+      "Left algorithm: U' L' U L U F U' F'  •  Right algorithm: U R U' R' U' F' U F."
     ]
   },
   {
     id: 5,
-    title: "Middle Layer — Right",
-    subtitle: "Step 5 of 10",
-    orientation: "Keep White on Bottom, Yellow on Top",
-    instructions: [
-      "Find another edge piece on the top layer without yellow.",
-      "Align its front color with the matching center.",
-      "If the top color matches the RIGHT center, the edge needs to go to the RIGHT.",
-      "Execute the Middle Layer Right algorithm to insert the edge smoothly."
-    ],
-    algorithm: "U R U' R' U' F' U F",
-    moves: ["U", "R", "U'", "R'", "U'", "F'", "U", "F"],
-    diagramTitle: "Target Edge Moving to the Right Slot:",
-    diagramType: "middle-layer",
-    tips: [
-      "This is the mirror opposite of Step 4.",
-      "Once all 4 middle edges are inserted, the first two layers (F2L) are completely solved!"
-    ]
-  },
-  {
-    id: 6,
     title: "Yellow Cross",
-    subtitle: "Step 6 of 10",
+    subtitle: "Step 5 of 9",
     orientation: "Keep Yellow on Top",
     instructions: [
       "Look at the yellow pieces on the top face (ignore the corners for now).",
@@ -125,9 +106,9 @@ export const SOLVING_STEPS: SolvingStep[] = [
     ]
   },
   {
-    id: 7,
+    id: 6,
     title: "Full Yellow Face — Fish Shape",
-    subtitle: "Step 7 of 10",
+    subtitle: "Step 6 of 9",
     orientation: "Keep Yellow on Top (Fish nose pointing bottom-left)",
     instructions: [
       "Once the yellow cross is formed, observe the yellow corners.",
@@ -146,9 +127,9 @@ export const SOLVING_STEPS: SolvingStep[] = [
     ]
   },
   {
-    id: 8,
+    id: 7,
     title: "Position Yellow Corners",
-    subtitle: "Step 8 of 10",
+    subtitle: "Step 7 of 9",
     orientation: "Yellow on Top (Matching headlights at the Back)",
     instructions: [
       "Look at the corners of the top layer.",
@@ -167,9 +148,9 @@ export const SOLVING_STEPS: SolvingStep[] = [
     ]
   },
   {
-    id: 9,
+    id: 8,
     title: "Position Yellow Edges / Finish",
-    subtitle: "Step 9 of 10",
+    subtitle: "Step 8 of 9",
     orientation: "Yellow on Top (Fully solved face placed at the Back)",
     instructions: [
       "All 4 corners are now in place. Only 3 or 4 edges need to swap.",
@@ -187,15 +168,15 @@ export const SOLVING_STEPS: SolvingStep[] = [
     ]
   },
   {
-    id: 10,
+    id: 9,
     title: "Cube Solved!",
-    subtitle: "Step 10 of 10",
+    subtitle: "Step 9 of 9",
     orientation: "Any Orientation — Admire Your Work!",
     instructions: [
       "CONGRATULATIONS! You have successfully solved the 3×3 Rubik's Cube!",
       "You have mastered the foundational layer-by-layer method:",
-      "1. Daisy → 2. White Cross → 3. First Layer Corners → 4 & 5. Middle Layer",
-      "6. Yellow Cross → 7. Yellow Face → 8. Yellow Corners → 9. Yellow Edges!",
+      "1. Daisy → 2. White Cross → 3. First Layer Corners → 4. Middle Layer",
+      "5. Yellow Cross → 6. Yellow Face → 7. Yellow Corners → 8. Yellow Edges!",
       "Click 'Solve Again' anytime to reset and practice each step until you can do it by heart."
     ],
     moves: [],
@@ -207,3 +188,4 @@ export const SOLVING_STEPS: SolvingStep[] = [
     ]
   }
 ];
+

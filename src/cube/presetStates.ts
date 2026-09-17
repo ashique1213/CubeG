@@ -19,38 +19,33 @@ export const STEP_SETUP_MOVES: Record<number, MoveNotation[]> = {
     'U', 'R', 'U\'', 'R\''   // reverse of R U R' U'
   ],
 
-  // Step 4: First layer complete, middle layer left edge waiting on top
+  // Step 4: First layer complete, middle layer edges waiting to be inserted (Left then Right reverse setup)
   4: [
-    'F', 'U', 'F\'', 'U\'', 'L\'', 'U\'', 'L', 'U' // reverse of U' L' U L U F U' F'
+    'F\'', 'U\'', 'F', 'U', 'R', 'U', 'R\'', 'U\'', 'F', 'U', 'F\'', 'U\'', 'L\'', 'U\'', 'L', 'U'
   ],
 
-  // Step 5: First layer complete, middle layer right edge waiting on top
+  // Step 5: First two layers solved, yellow L-shape ready for yellow cross
   5: [
-    'F\'', 'U\'', 'F', 'U', 'R', 'U', 'R\'', 'U\'' // reverse of U R U' R' U' F' U F
-  ],
-
-  // Step 6: First two layers solved, yellow L-shape ready for yellow cross
-  6: [
     'F', 'R', 'U', 'R\'', 'U\'', 'F\'' // reverse of F U R U' R' F'
   ],
 
-  // Step 7: Yellow cross solved, forming the Fish Shape ready for Sune
-  7: [
+  // Step 6: Yellow cross solved, forming the Fish Shape ready for Sune
+  6: [
     'R', 'U2', 'R\'', 'U\'', 'R', 'U\'', 'R\'' // reverse of R U R' U R U2 R'
   ],
 
-  // Step 8: Yellow face solved, headlights ready at the back for A-Perm
-  8: [
+  // Step 7: Yellow face solved, headlights ready at the back for A-Perm
+  7: [
     'R2', 'B2', 'R', 'F', 'R\'', 'B2', 'R', 'F\'', 'R' // reverse of R' F R' B2 R F' R' B2 R2
   ],
 
-  // Step 9: Corners solved, 3 edges need cycling for U-Perm
-  9: [
+  // Step 8: Corners solved, 3 edges need cycling for U-Perm
+  8: [
     'R', 'U\'', 'R', 'U', 'R', 'U', 'R', 'U\'', 'R\'', 'U\'', 'R2' // reverse of R2 U R U R' U' R' U' R' U R'
   ],
 
-  // Step 10: Completely solved Rubik's Cube!
-  10: [],
+  // Step 9: Completely solved Rubik's Cube!
+  9: [],
 };
 
 export function getInitialStateForStep(stepId: number): CubeState {

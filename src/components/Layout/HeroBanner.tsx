@@ -63,7 +63,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
             <span>PDF-Style Simple Guide</span>
           </div>
           <div className="flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg bg-white/5 border border-white/10">
-            <span className="text-amber-400 font-bold">10</span>
+            <span className="text-amber-400 font-bold">9</span>
             <span>Fixed Beginner Steps</span>
           </div>
         </div>

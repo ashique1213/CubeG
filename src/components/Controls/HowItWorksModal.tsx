@@ -37,7 +37,7 @@ export const HowItWorksModal: React.FC<HowItWorksModalProps> = ({
         </h3>
 
         <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          This website is your interactive personal tutor. Rather than memorizing confusing diagrams from a sheet of paper, you follow 10 guided steps while watching the 3D cube perform each move in real-time.
+          This website is your interactive personal tutor. Rather than memorizing confusing diagrams from a sheet of paper, you follow 9 guided steps while watching the 3D cube perform each move in real-time.
         </p>
 
         <div className="space-y-2.5 pt-2">
