@@ -11,8 +11,8 @@ export const StepDiagram: React.FC<StepDiagramProps> = ({ type }) => {
   switch (type) {
     case 'daisy':
       return (
-        <div className="flex flex-col items-center p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700/60">
-          <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+        <div className="flex flex-col items-center p-3 bg-white dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700/60">
+          <div className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-200 mb-2">
             Target Top Face: Daisy
           </div>
           <div className="grid grid-cols-3 gap-1.5 p-2 bg-slate-900 rounded-lg shadow-inner">
@@ -29,7 +29,7 @@ export const StepDiagram: React.FC<StepDiagramProps> = ({ type }) => {
             <div className="w-8 h-8 rounded bg-white border border-slate-300 flex items-center justify-center font-bold text-[9px] text-slate-800 shadow-sm">W</div>
             <div className="w-8 h-8 rounded bg-slate-800 border border-slate-700"></div>
           </div>
-          <span className="text-[11px] text-slate-600 dark:text-slate-400 mt-2 text-center">
+          <span className="text-[11px] text-slate-600 dark:text-slate-300 mt-2 text-center">
             4 white petals surrounding the yellow center
           </span>
         </div>
@@ -37,8 +37,8 @@ export const StepDiagram: React.FC<StepDiagramProps> = ({ type }) => {
 
     case 'bottom-cross':
       return (
-        <div className="flex flex-col items-center p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700/60">
-          <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+        <div className="flex flex-col items-center p-3 bg-white dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700/60">
+          <div className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-200 mb-2">
             Bottom Face: White Cross
           </div>
           <div className="grid grid-cols-3 gap-1.5 p-2 bg-slate-900 rounded-lg shadow-inner">
@@ -58,10 +58,45 @@ export const StepDiagram: React.FC<StepDiagramProps> = ({ type }) => {
         </div>
       );
 
+    case 'middle-layer':
+      return (
+        <div className="flex flex-col items-center p-3 bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm w-full">
+          <div className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-slate-100 mb-3 text-center">
+            Middle Layer Insertion Directions
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-md">
+            {/* Left Insertion */}
+            <div className="flex flex-col items-center p-3 bg-sky-50 dark:bg-sky-950/40 rounded-xl border border-sky-200 dark:border-sky-800/60 shadow-xs">
+              <span className="text-xs font-bold text-sky-700 dark:text-sky-300 uppercase tracking-wide mb-1.5">
+                Left Insertion
+              </span>
+              <div className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100 bg-white dark:bg-slate-900 border border-sky-200 dark:border-sky-800 px-2.5 py-1.5 rounded-lg text-center w-full shadow-xs">
+                U' L' U L U F U' F'
+              </div>
+              <span className="text-[11px] text-slate-600 dark:text-slate-300 font-medium mt-2 text-center">
+                Top sticker matches LEFT center
+              </span>
+            </div>
+            {/* Right Insertion */}
+            <div className="flex flex-col items-center p-3 bg-indigo-50 dark:bg-indigo-950/40 rounded-xl border border-indigo-200 dark:border-indigo-800/60 shadow-xs">
+              <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 uppercase tracking-wide mb-1.5">
+                Right Insertion
+              </span>
+              <div className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100 bg-white dark:bg-slate-900 border border-indigo-200 dark:border-indigo-800 px-2.5 py-1.5 rounded-lg text-center w-full shadow-xs">
+                U R U' R' U' F' U F
+              </div>
+              <span className="text-[11px] text-slate-600 dark:text-slate-300 font-medium mt-2 text-center">
+                Top sticker matches RIGHT center
+              </span>
+            </div>
+          </div>
+        </div>
+      );
+
     case 'yellow-progression':
       return (
-        <div className="flex flex-col items-center p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700/60 w-full">
-          <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+        <div className="flex flex-col items-center p-3 bg-white dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700/60 w-full">
+          <div className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-200 mb-2">
             Top Face Progression
           </div>
           <div className="flex items-center justify-center gap-2 sm:gap-4 overflow-x-auto py-1">
@@ -113,8 +148,8 @@ export const StepDiagram: React.FC<StepDiagramProps> = ({ type }) => {
 
     case 'fish':
       return (
-        <div className="flex flex-col items-center p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700/60">
-          <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+        <div className="flex flex-col items-center p-3 bg-white dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700/60">
+          <div className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-200 mb-2">
             Yellow Fish Shape (Nose at Bottom-Left)
           </div>
           <div className="grid grid-cols-3 gap-1.5 p-2 bg-slate-900 rounded-lg shadow-inner">
@@ -138,8 +173,8 @@ export const StepDiagram: React.FC<StepDiagramProps> = ({ type }) => {
 
     case 'headlights':
       return (
-        <div className="flex flex-col items-center p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700/60">
-          <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+        <div className="flex flex-col items-center p-3 bg-white dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700/60">
+          <div className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-200 mb-2">
             Back Face Headlights
           </div>
           <div className="flex items-center gap-1.5 p-2 bg-slate-900 rounded-lg shadow-inner">
@@ -147,7 +182,7 @@ export const StepDiagram: React.FC<StepDiagramProps> = ({ type }) => {
             <div className="w-8 h-8 rounded bg-slate-800 border border-slate-700 flex items-center justify-center text-[9px] text-slate-400">Edge</div>
             <div className="w-8 h-8 rounded bg-amber-400 border border-amber-500 flex items-center justify-center font-bold text-[9px] text-amber-950 shadow ring-2 ring-amber-400">HL</div>
           </div>
-          <span className="text-[11px] text-slate-600 dark:text-slate-400 mt-2 text-center">
+          <span className="text-[11px] text-slate-600 dark:text-slate-300 mt-2 text-center">
             Two matching corners positioned at the BACK
           </span>
         </div>
@@ -157,3 +192,4 @@ export const StepDiagram: React.FC<StepDiagramProps> = ({ type }) => {
       return null;
   }
 };
+
