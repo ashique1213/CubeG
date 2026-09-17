@@ -29,12 +29,18 @@ export const MoveDisplay: React.FC<MoveDisplayProps> = ({
           const isCurrent = !isComplete && idx === currentMoveIndex;
           const isDone = idx < currentMoveIndex || isComplete;
           return (
-            <span
-              key={`${move}-${idx}`}
-              className={`move-badge${isCurrent ? ' current' : isDone ? ' done' : ''}`}
-            >
-              {move}
-            </span>
+            <React.Fragment key={`${move}-${idx}`}>
+              {idx > 0 && idx % 8 === 0 && (
+                <span className="move-badge-separator" title="Algorithm Separator">
+                  |
+                </span>
+              )}
+              <span
+                className={`move-badge${isCurrent ? ' current' : isDone ? ' done' : ''}`}
+              >
+                {move}
+              </span>
+            </React.Fragment>
           );
         })}
       </div>
