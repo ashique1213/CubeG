@@ -1,5 +1,5 @@
 import React from 'react';
-import { Compass, Award, Menu, X } from 'lucide-react';
+import { Compass, Award, Menu, X, Lightbulb } from 'lucide-react';
 import { SolvingStep } from '../../cube/types';
 import { StepDiagram } from './StepDiagram';
 import { MoveDisplay } from './MoveDisplay';
@@ -43,7 +43,7 @@ export const StepPanel: React.FC<StepPanelProps> = ({
   onSolveAgain,
   onToggleSidebar,
 }) => {
-  const isSolvedStep = step.id === 10;
+  const isSolvedStep = step.id === totalSteps;
 
   return (
     <div className="step-doc select-text">
@@ -107,7 +107,7 @@ export const StepPanel: React.FC<StepPanelProps> = ({
             </div>
             <div className="celebration-title">Cube Solved!</div>
             <p className="celebration-text">
-              You've mastered all 10 steps of the beginner method. Drag the 3D cube to inspect
+              You've mastered all {totalSteps} steps of the beginner method. Drag the 3D cube to inspect
               your finished puzzle, or start a fresh run.
             </p>
           </div>
@@ -125,6 +125,20 @@ export const StepPanel: React.FC<StepPanelProps> = ({
         {step.diagramType && (
           <StepDiagram type={step.diagramType} />
         )}
+
+        {step.tips && step.tips.length > 0 && (
+          <div className="tips-card">
+            <div className="tips-card-header">
+              <Lightbulb style={{ width: 13, height: 13, color: '#f59e0b' }} />
+              <span>Pro Tip</span>
+            </div>
+            <div className="tips-card-body">
+              {step.tips.map((tip, idx) => (
+                <p key={idx} className="tip-text">{tip}</p>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Step Navigation — pinned at bottom */}
@@ -136,18 +150,6 @@ export const StepPanel: React.FC<StepPanelProps> = ({
         onNext={onNext}
         onSolveAgain={onSolveAgain}
       />
-
-      <div className="step-doc-footer">
-        <span>Powered by </span>
-        <a
-          href="https://questacksolutions.vercel.app"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="step-doc-footer-link"
-        >
-          QueStack Solutions
-        </a>
-      </div>
     </div>
   );
 };
