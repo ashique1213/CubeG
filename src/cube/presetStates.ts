@@ -29,19 +29,19 @@ export const STEP_SETUP_MOVES: Record<number, MoveNotation[]> = {
     'F', 'R', 'U', 'R\'', 'U\'', 'F\'' // reverse of F U R U' R' F'
   ],
 
-  // Step 6: Yellow cross solved, forming the Fish Shape ready for Sune
+  // Step 6: Yellow cross solved, top layer edges ready to align side colors (U R U R' U R U2 R')
   6: [
-    'R', 'U2', 'R\'', 'U\'', 'R', 'U\'', 'R\'' // reverse of R U R' U R U2 R'
+    'R', 'U2', "R'", "U'", 'R', "U'", "R'", "U'" // inverse of U R U R' U R U2 R'
   ],
 
-  // Step 7: Yellow face solved, headlights ready at the back for A-Perm
+  // Step 7: Crossed side colors aligned, corners ready for setting (U R U' L' U R' U' L)
   7: [
-    'R2', 'B2', 'R', 'F', 'R\'', 'B2', 'R', 'F\'', 'R' // reverse of R' F R' B2 R F' R' B2 R2
+    "L'", 'U', 'R', "U'", 'L', 'U', "R'", "U'" // inverse of U R U' L' U R' U' L
   ],
 
-  // Step 8: Corners solved, 3 edges need cycling for U-Perm
+  // Step 8: Corner positions set, yellow face orientation ready for R' B' R B
   8: [
-    'R', 'U\'', 'R', 'U', 'R', 'U', 'R', 'U\'', 'R\'', 'U\'', 'R2' // reverse of R2 U R U R' U' R' U' R' U R'
+    "B'", "R'", 'B', 'R', "B'", "R'", 'B', 'R' // inverse of R' B' R B R' B' R B
   ],
 
   // Step 9: Completely solved Rubik's Cube!

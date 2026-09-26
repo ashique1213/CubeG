@@ -1,5 +1,5 @@
 import React from 'react';
-import { Compass, Award, Menu, X, Lightbulb } from 'lucide-react';
+import { Compass, Award } from 'lucide-react';
 import { SolvingStep } from '../../cube/types';
 import { StepDiagram } from './StepDiagram';
 import { MoveDisplay } from './MoveDisplay';
@@ -12,9 +12,8 @@ interface StepPanelProps {
   totalSteps: number;
   currentMoveIndex: number;
   isPlaying: boolean;
-  isAnimating: boolean;
+  isAnimating?: boolean;
   isComplete: boolean;
-  isSidebarOpen: boolean;
   onPlay: () => void;
   onPause: () => void;
   onNextMove: () => void;
@@ -22,7 +21,6 @@ interface StepPanelProps {
   onPrev: () => void;
   onNext: () => void;
   onSolveAgain: () => void;
-  onToggleSidebar: () => void;
 }
 
 export const StepPanel: React.FC<StepPanelProps> = ({
@@ -31,9 +29,8 @@ export const StepPanel: React.FC<StepPanelProps> = ({
   totalSteps,
   currentMoveIndex,
   isPlaying,
-  isAnimating,
+  isAnimating = false,
   isComplete,
-  isSidebarOpen,
   onPlay,
   onPause,
   onNextMove,
@@ -41,49 +38,51 @@ export const StepPanel: React.FC<StepPanelProps> = ({
   onPrev,
   onNext,
   onSolveAgain,
-  onToggleSidebar,
 }) => {
   const isSolvedStep = step.id === totalSteps;
 
   return (
-    <div className="step-doc select-text">
+    <article className="w3-main-article">
+      {/* Top W3Schools Previous / Next Bar */}
+      <StepNavigation
+        currentStep={currentStep}
+        totalSteps={totalSteps}
+        isAnimating={isAnimating}
+        onPrev={onPrev}
+        onNext={onNext}
+        onSolveAgain={onSolveAgain}
+      />
 
-      {/* Step Header */}
-      <div className="step-doc-header">
-        {/* Hamburger — mobile/tablet only */}
-        <button className="step-doc-hamburger" onClick={onToggleSidebar} title="Menu">
-          {isSidebarOpen
-            ? <X style={{ width: 16, height: 16 }} />
-            : <Menu style={{ width: 16, height: 16 }} />
-          }
-        </button>
+      {/* Main Page Title */}
+      <div className="w3-page-header">
+        <h1 className="w3-page-title">
+          Step {step.id}: {step.title}
+        </h1>
 
-        <div>
-          <div className="step-doc-eyebrow">
-            <span className="step-tag">Step {step.id.toString().padStart(2, '0')} of {totalSteps}</span>
-            <div className="step-orientation">
-              <Compass style={{ width: 12, height: 12, color: 'var(--accent)' }} />
-              <span>{step.orientation}</span>
-            </div>
-          </div>
-          <h2 className="step-doc-title">{step.title}</h2>
+        <div className="w3-orientation-pill">
+          <Compass style={{ width: 14, height: 14, color: '#04AA6D' }} />
+          <span><strong>Orientation:</strong> {step.orientation}</span>
         </div>
       </div>
 
-      {/* Body — Algorithm card comes FIRST so Sequence & Play All are ALWAYS visible without scrolling */}
-      <div className="step-body">
+      <hr className="w3-divider" />
+
+      {/* Main Body */}
+      <div className="w3-page-body">
+        {/* W3Schools Iconic Example / Algorithm Box at the Top */}
         {step.algorithm && (
-          <div className="algo-card">
-            <div className="algo-card-header">
-              <span className="algo-card-label">Algorithm</span>
-              <span className="algo-card-count">{step.moves.length} moves</span>
+          <div className="w3-example">
+            <h3 className="w3-example-heading">Algorithm Sequence:</h3>
+            <div className="w3-code">
+              <code>{step.algorithm}</code>
             </div>
-            <div className="algo-formula">{step.algorithm}</div>
-            <div className="algo-body">
+
+            <div className="w3-example-interactive">
               <MoveDisplay
                 moves={step.moves}
                 currentMoveIndex={currentMoveIndex}
                 isComplete={isComplete}
+                stepId={step.id}
               />
               <AlgorithmPlayer
                 moves={step.moves}
@@ -100,48 +99,57 @@ export const StepPanel: React.FC<StepPanelProps> = ({
           </div>
         )}
 
-        {isSolvedStep ? (
-          <div className="celebration-block">
-            <div className="celebration-icon">
-              <Award style={{ width: 22, height: 22 }} />
+        {/* Step Instructions directly below */}
+        <section className="w3-section">
+          <h2 className="w3-section-title">How To Do This Step:</h2>
+          <ul className="w3-instructions-list">
+            {step.instructions.map((text, idx) => (
+              <li key={idx} className="w3-instruction-item">
+                <span className="w3-instruction-bullet">&#10003;</span>
+                <span className="w3-instruction-text">{text}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* 2D Visual Diagram */}
+        {step.diagramType && (
+          <section className="w3-section">
+            <StepDiagram type={step.diagramType} />
+          </section>
+        )}
+
+        {/* Solved Celebration Box (for Step 9) */}
+        {isSolvedStep && (
+          <div className="w3-panel w3-solved-panel">
+            <div className="w3-solved-header">
+              <Award style={{ width: 26, height: 26, color: '#04AA6D' }} />
+              <h3 style={{ margin: 0, fontSize: 18, color: '#04AA6D' }}>
+                Congratulations — 3×3 Rubik's Cube Solved!
+              </h3>
             </div>
-            <div className="celebration-title">Cube Solved!</div>
-            <p className="celebration-text">
-              You've mastered all {totalSteps} steps of the beginner method. Drag the 3D cube to inspect
-              your finished puzzle, or start a fresh run.
+            <p style={{ marginTop: 8, fontSize: 14, color: '#334155', lineHeight: 1.5 }}>
+              You have completed all 9 steps of the beginner method. Click <strong>Solve Again</strong> to practice from Step 1 or test your speed!
             </p>
           </div>
-        ) : (
-          <div className="instructions-block">
-            {step.instructions.map((text, idx) => (
-              <div key={idx} className="instruction-row">
-                <span className="instruction-bullet" />
-                <span>{text}</span>
-              </div>
-            ))}
-          </div>
         )}
 
-        {step.diagramType && (
-          <StepDiagram type={step.diagramType} />
-        )}
-
+        {/* W3Schools Note & Pro Tip Callout Panels */}
         {step.tips && step.tips.length > 0 && (
-          <div className="tips-card">
-            <div className="tips-card-header">
-              <Lightbulb style={{ width: 13, height: 13, color: '#f59e0b' }} />
-              <span>Pro Tip</span>
-            </div>
-            <div className="tips-card-body">
-              {step.tips.map((tip, idx) => (
-                <p key={idx} className="tip-text">{tip}</p>
-              ))}
-            </div>
+          <div className="w3-panel w3-tip-panel">
+            <h4 className="w3-tip-heading">Pro Tip &amp; Notes:</h4>
+            {step.tips.map((tip, idx) => (
+              <p key={idx} className="w3-tip-text">
+                &bull; {tip}
+              </p>
+            ))}
           </div>
         )}
       </div>
 
-      {/* Step Navigation — pinned at bottom */}
+      <hr className="w3-divider" />
+
+      {/* Bottom W3Schools Previous / Next Bar */}
       <StepNavigation
         currentStep={currentStep}
         totalSteps={totalSteps}
@@ -150,6 +158,6 @@ export const StepPanel: React.FC<StepPanelProps> = ({
         onNext={onNext}
         onSolveAgain={onSolveAgain}
       />
-    </div>
+    </article>
   );
 };

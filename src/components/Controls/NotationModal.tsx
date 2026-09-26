@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { X, BookOpen, Check } from 'lucide-react';
 
 interface NotationModalProps {
@@ -7,95 +7,116 @@ interface NotationModalProps {
 }
 
 export const NotationModal: React.FC<NotationModalProps> = ({ isOpen, onClose }) => {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const faces = [
-    { key: 'U', name: 'Up', color: 'Yellow', desc: 'Top layer rotation clockwise' },
-    { key: 'D', name: 'Down', color: 'White', desc: 'Bottom layer rotation clockwise' },
-    { key: 'R', name: 'Right', color: 'Green', desc: 'Right layer rotation clockwise' },
-    { key: 'L', name: 'Left', color: 'Blue', desc: 'Left layer rotation clockwise' },
-    { key: 'F', name: 'Front', color: 'Red', desc: 'Front layer facing you clockwise' },
-    { key: 'B', name: 'Back', color: 'Orange', desc: 'Back layer facing away clockwise' },
+    { key: 'U', name: 'Up', color: 'Yellow', desc: 'Top layer turn 90° clockwise' },
+    { key: 'D', name: 'Down', color: 'White', desc: 'Bottom layer turn 90° clockwise' },
+    { key: 'R', name: 'Right', color: 'Green', desc: 'Right layer turn 90° clockwise' },
+    { key: 'L', name: 'Left', color: 'Blue', desc: 'Left layer turn 90° clockwise' },
+    { key: 'F', name: 'Front', color: 'Red', desc: 'Front layer turn 90° clockwise' },
+    { key: 'B', name: 'Back', color: 'Orange', desc: 'Back layer turn 90° clockwise' },
   ];
 
   return (
-    <div className="modal-backdrop animate-fade-in">
-      <div className="modal-box" style={{ maxWidth: 520, padding: 0 }}>
-        <div className="modal-header">
+    <div
+      className="w3-modal-backdrop"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="notation-modal-title"
+    >
+      <div
+        className="w3-modal-dialog"
+        onClick={e => e.stopPropagation()}
+      >
+        {/* Exact Black Header */}
+        <div className="w3-modal-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <BookOpen style={{ width: 16, height: 16, color: 'var(--accent)' }} />
-            <span className="modal-title">Rubik's Cube Notation Guide</span>
+            <BookOpen style={{ width: 18, height: 18, color: '#04AA6D' }} />
+            <span id="notation-modal-title" className="w3-modal-title">
+              Rubik's Cube Move Notations
+            </span>
           </div>
-          <button onClick={onClose} className="modal-close">
-            <X style={{ width: 16, height: 16 }} />
-          </button>
-        </div>
-        <div className="modal-body">
-
-        {/* Rule Summary */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700/60">
-            <div className="font-mono font-bold text-sky-600 dark:text-sky-400 text-sm">
-              Letter alone (e.g. R)
-            </div>
-            <div className="text-xs text-slate-600 dark:text-slate-300 mt-1">
-              Turn that face <strong>90° clockwise</strong> looking directly at it.
-            </div>
-          </div>
-          <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700/60">
-            <div className="font-mono font-bold text-amber-600 dark:text-amber-400 text-sm">
-              Prime ' (e.g. R')
-            </div>
-            <div className="text-xs text-slate-600 dark:text-slate-300 mt-1">
-              Turn that face <strong>90° counter-clockwise</strong> (opposite direction).
-            </div>
-          </div>
-          <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700/60">
-            <div className="font-mono font-bold text-emerald-600 dark:text-emerald-400 text-sm">
-              Number 2 (e.g. R2)
-            </div>
-            <div className="text-xs text-slate-600 dark:text-slate-300 mt-1">
-              Turn that face <strong>180° (half turn)</strong> in either direction.
-            </div>
-          </div>
-        </div>
-
-        {/* Faces Table */}
-        <div className="space-y-2">
-          <div className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-            The 6 Faces
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            {faces.map(f => (
-              <div
-                key={f.key}
-                className="flex items-center gap-3 p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200/80 dark:border-slate-800"
-              >
-                <span className="w-8 h-8 rounded-lg bg-slate-900 text-sky-400 font-mono font-bold flex items-center justify-center text-sm shadow-xs">
-                  {f.key}
-                </span>
-                <div className="text-xs">
-                  <div className="font-bold text-slate-800 dark:text-slate-200">
-                    {f.name} ({f.color})
-                  </div>
-                  <div className="text-slate-500 text-[11px]">
-                    {f.desc}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="pt-2 flex justify-end">
           <button
             onClick={onClose}
-            className="flex items-center gap-1.5 px-5 py-2 bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold rounded-xl shadow-md transition-all active:scale-95"
+            className="w3-modal-close"
+            title="Close dialog (Esc)"
+            aria-label="Close dialog"
           >
-            <Check className="w-4 h-4" />
-            <span>Got It</span>
+            <X style={{ width: 20, height: 20 }} />
           </button>
         </div>
+
+        {/* Modal Content */}
+        <div className="w3-modal-content">
+          {/* Rules Summary */}
+          <div className="w3-notation-rules">
+            <div className="w3-notation-rule-card">
+              <div className="w3-rule-badge">Letter (e.g. R, U, F)</div>
+              <p className="w3-rule-desc">
+                Turn that face <strong>90° clockwise</strong> looking directly at it.
+              </p>
+            </div>
+
+            <div className="w3-notation-rule-card">
+              <div className="w3-rule-badge w3-badge-prime">Prime ' (e.g. R', U')</div>
+              <p className="w3-rule-desc">
+                Turn that face <strong>90° counter-clockwise</strong> (opposite).
+              </p>
+            </div>
+
+            <div className="w3-notation-rule-card">
+              <div className="w3-rule-badge w3-badge-double">Number 2 (e.g. U2, R2)</div>
+              <p className="w3-rule-desc">
+                Turn that face <strong>180° (half turn)</strong> in either direction.
+              </p>
+            </div>
+          </div>
+
+          {/* Faces Grid */}
+          <div style={{ marginTop: 18 }}>
+            <h4 className="w3-modal-section-title">The 6 Cube Faces</h4>
+            <div className="w3-faces-grid">
+              {faces.map(f => (
+                <div key={f.key} className="w3-face-card">
+                  <span className="w3-face-key">{f.key}</span>
+                  <div>
+                    <div className="w3-face-name">
+                      {f.name} ({f.color})
+                    </div>
+                    <div className="w3-face-desc">{f.desc}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Footer Action */}
+          <div className="w3-modal-footer">
+            <button
+              onClick={onClose}
+              className="w3-btn w3-btn-run"
+              style={{ padding: '8px 22px', fontSize: 14 }}
+            >
+              <Check style={{ width: 16, height: 16 }} />
+              <span>Got It</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

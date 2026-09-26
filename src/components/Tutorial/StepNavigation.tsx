@@ -1,10 +1,10 @@
 import React from 'react';
-import { ArrowLeft, ArrowRight, RotateCcw } from 'lucide-react';
+import { RotateCcw } from 'lucide-react';
 
 interface StepNavigationProps {
   currentStep: number;
   totalSteps: number;
-  isAnimating: boolean;
+  isAnimating?: boolean;
   onPrev: () => void;
   onNext: () => void;
   onSolveAgain: () => void;
@@ -13,7 +13,7 @@ interface StepNavigationProps {
 export const StepNavigation: React.FC<StepNavigationProps> = ({
   currentStep,
   totalSteps,
-  isAnimating,
+  isAnimating = false,
   onPrev,
   onNext,
   onSolveAgain,
@@ -22,25 +22,26 @@ export const StepNavigation: React.FC<StepNavigationProps> = ({
   const isLast = currentStep === totalSteps;
 
   return (
-    <div className="step-nav">
+    <div className="w3-nav-bar">
       <button
         disabled={isFirst || isAnimating}
         onClick={onPrev}
-        className="step-nav-btn"
+        className="w3-btn-prev"
+        title="Go to previous step"
       >
-        <ArrowLeft style={{ width: 14, height: 14 }} />
-        Previous
+        &#10094; Previous
       </button>
 
-      <span className="step-nav-info">
-        {currentStep} / {totalSteps}
-      </span>
+      <div className="w3-nav-counter">
+        Step {currentStep} of {totalSteps}
+      </div>
 
       {isLast ? (
         <button
           disabled={isAnimating}
           onClick={onSolveAgain}
-          className="step-nav-btn step-nav-solve-again"
+          className="w3-btn-solve-again"
+          title="Start tutorial from Step 1"
         >
           <RotateCcw style={{ width: 14, height: 14 }} />
           Solve Again
@@ -49,10 +50,10 @@ export const StepNavigation: React.FC<StepNavigationProps> = ({
         <button
           disabled={isAnimating}
           onClick={onNext}
-          className="step-nav-btn step-nav-next"
+          className="w3-btn-next"
+          title="Go to next step"
         >
-          Next Step
-          <ArrowRight style={{ width: 14, height: 14 }} />
+          Next &#10095;
         </button>
       )}
     </div>

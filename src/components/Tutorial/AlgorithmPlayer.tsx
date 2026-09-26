@@ -6,7 +6,7 @@ interface AlgorithmPlayerProps {
   moves: MoveNotation[];
   currentMoveIndex: number;
   isPlaying: boolean;
-  isAnimating: boolean;
+  isAnimating?: boolean;
   isComplete: boolean;
   onPlay: () => void;
   onPause: () => void;
@@ -18,7 +18,7 @@ export const AlgorithmPlayer: React.FC<AlgorithmPlayerProps> = ({
   moves,
   currentMoveIndex,
   isPlaying,
-  isAnimating,
+  isAnimating = false,
   isComplete,
   onPlay,
   onPause,
@@ -28,40 +28,46 @@ export const AlgorithmPlayer: React.FC<AlgorithmPlayerProps> = ({
   if (moves.length === 0) return null;
 
   return (
-    <div className="player-row">
+    <div className="w3-player-row">
       {isPlaying ? (
-        <button onClick={onPause} className="player-btn player-btn-pause">
-          <Pause style={{ width: 13, height: 13 }} />
-          Pause
+        <button
+          onClick={onPause}
+          className="w3-btn w3-btn-pause"
+          title="Pause move playback"
+        >
+          <Pause style={{ width: 14, height: 14 }} />
+          <span>Pause</span>
         </button>
       ) : (
         <button
           disabled={isAnimating || isComplete}
           onClick={onPlay}
-          className="player-btn player-btn-play"
+          className="w3-btn w3-btn-run"
+          title="Run full algorithm sequence"
         >
-          <Play style={{ width: 13, height: 13 }} />
-          {currentMoveIndex > 0 && !isComplete ? 'Resume' : 'Play All'}
+          <Play style={{ width: 14, height: 14 }} />
+          <span>{currentMoveIndex > 0 && !isComplete ? 'Resume Moves »' : 'Run Algorithm »'}</span>
         </button>
       )}
 
       <button
         disabled={isAnimating || isPlaying || isComplete}
         onClick={onNextMove}
-        className="player-btn player-btn-next"
-        title="Step one move at a time"
+        className="w3-btn w3-btn-secondary"
+        title="Step forward one move at a time"
       >
-        <SkipForward style={{ width: 13, height: 13 }} />
-        Next Move
+        <SkipForward style={{ width: 14, height: 14 }} />
+        <span>Next Move &#10095;</span>
       </button>
 
       <button
         disabled={isAnimating}
         onClick={onResetStep}
-        className="player-btn player-btn-reset"
-        title="Reset to start of step"
+        className="w3-btn w3-btn-reset"
+        title="Reset sequence to beginning"
       >
-        <RotateCcw style={{ width: 13, height: 13 }} />
+        <RotateCcw style={{ width: 14, height: 14 }} />
+        <span>Reset</span>
       </button>
     </div>
   );

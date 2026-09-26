@@ -1,90 +1,73 @@
 import React from 'react';
-import { BookOpen, Sliders, RotateCcw, Menu, X, Box } from 'lucide-react';
-import { SolvingStep } from '../../cube/types';
+import { BookOpen, HelpCircle, RotateCcw, Menu, X, Box } from 'lucide-react';
 
 interface HeaderProps {
-  currentStep: SolvingStep;
-  currentStepId: number;
-  totalSteps: number;
-  isAnimating: boolean;
-  isManualControlsOpen: boolean;
-  isSidebarOpen: boolean;
-  onSelectStep: (stepId: number) => void;
-  onPrevStep: () => void;
-  onNextStep: () => void;
-  onToggleManualControls: () => void;
   onOpenNotation: () => void;
   onOpenHowItWorks: () => void;
   onResetStep: () => void;
   onToggleSidebar: () => void;
+  isSidebarOpen: boolean;
 }
 
 export const Header: React.FC<HeaderProps> = ({
-  isAnimating,
-  isManualControlsOpen,
-  isSidebarOpen,
-  onToggleManualControls,
   onOpenNotation,
+  onOpenHowItWorks,
   onResetStep,
   onToggleSidebar,
+  isSidebarOpen,
 }) => {
   return (
-    <header className="topbar">
-      {/* Hamburger (mobile/tablet only) */}
+    <header className="w3-topbar">
+      {/* Mobile Hamburger */}
       <button
-        className="topbar-hamburger"
+        className="w3-topbar-hamburger"
         onClick={onToggleSidebar}
-        title={isSidebarOpen ? 'Close menu' : 'Open menu'}
+        title={isSidebarOpen ? 'Close sidebar' : 'Open sidebar'}
+        aria-label="Toggle menu"
       >
-        {isSidebarOpen
-          ? <X style={{ width: 18, height: 18 }} />
-          : <Menu style={{ width: 18, height: 18 }} />
-        }
+        {isSidebarOpen ? <X style={{ width: 20, height: 20 }} /> : <Menu style={{ width: 20, height: 20 }} />}
       </button>
 
-      {/* Brand */}
-      <div className="topbar-brand">
-        <div className="topbar-brand-icon">
-          <Box style={{ width: 16, height: 16, color: '#fff' }} />
+      {/* W3Schools-style Logo / Brand */}
+      <div className="w3-topbar-brand">
+        <div className="w3-topbar-logo">
+          <Box style={{ width: 18, height: 18, color: '#ffffff' }} />
         </div>
-        <span className="topbar-brand-name">CubeGuide</span>
-        <span className="topbar-brand-badge">3×3 PRO</span>
+        <div className="w3-topbar-title">
+          <span className="w3-logo-main">Cube<span className="w3-logo-accent">G</span></span>
+          <span className="w3-logo-badge">3×3 TUTORIAL</span>
+        </div>
       </div>
 
-      {/* Spacer */}
-      <div style={{ flex: 1 }} />
-
-      {/* Actions */}
-      <div className="topbar-actions">
+      {/* Top navigation links */}
+      <nav className="w3-topbar-nav">
         <button
           onClick={onResetStep}
-          disabled={isAnimating}
-          className="topbar-btn"
-          title="Reset current step"
+          className="w3-topbar-link"
+          title="Reset current step sequence"
         >
-          <RotateCcw style={{ width: 13, height: 13 }} />
-          <span className="topbar-btn-label">Reset Step</span>
-        </button>
-
-        <button
-          onClick={onToggleManualControls}
-          className="topbar-btn"
-          title="Toggle Manual Layer Moves Pad"
-          style={isManualControlsOpen ? { color: 'var(--accent)', borderColor: 'var(--accent-border)', background: 'var(--accent-bg)' } : {}}
-        >
-          <Sliders style={{ width: 13, height: 13 }} />
-          <span className="topbar-btn-label">Manual</span>
+          <RotateCcw style={{ width: 14, height: 14 }} />
+          <span>Reset Step</span>
         </button>
 
         <button
           onClick={onOpenNotation}
-          className="topbar-btn"
-          title="Open Notation Reference"
+          className="w3-topbar-link"
+          title="Cube Move Notation Cheatsheet"
         >
-          <BookOpen style={{ width: 13, height: 13 }} />
-          <span className="topbar-btn-label">Notation</span>
+          <BookOpen style={{ width: 14, height: 14 }} />
+          <span>Notations</span>
         </button>
-      </div>
+
+        <button
+          onClick={onOpenHowItWorks}
+          className="w3-topbar-link"
+          title="How This Method Works"
+        >
+          <HelpCircle style={{ width: 14, height: 14 }} />
+          <span>How It Works</span>
+        </button>
+      </nav>
     </header>
   );
 };

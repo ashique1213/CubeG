@@ -1,5 +1,5 @@
-import React from 'react';
-import { X, CheckCircle2, ArrowRight } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { X, HelpCircle, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 interface HowItWorksModalProps {
   isOpen: boolean;
@@ -12,61 +12,97 @@ export const HowItWorksModal: React.FC<HowItWorksModalProps> = ({
   onClose,
   onStartSolving,
 }) => {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const stepsOverview = [
-    { title: 'The Daisy & White Cross', desc: 'Gather 4 white petals around yellow center, then rotate 180° down.' },
-    { title: 'First Layer Corners', desc: 'Insert the 4 bottom white corners using the fundamental R U R\' U\' trigger.' },
-    { title: 'Middle Layer Edges', desc: 'Slot the 4 middle belt edges into left or right positions.' },
-    { title: 'Yellow Cross & Face', desc: 'Create the top yellow cross and complete the yellow face using the Fish/Sune algorithm.' },
-    { title: 'Yellow Corners & Edges', desc: 'Position headlights, cycle the last 3 edges, and solve the cube!' },
+    { title: 'The Daisy', desc: 'Surround the yellow center with 4 white edge petals.' },
+    { title: 'White Cross', desc: 'Match side colors to centers and turn 180° down to the bottom face.' },
+    { title: 'First Layer Corners', desc: 'Insert the 4 bottom white corners using R U R\' U\'.' },
+    { title: 'Middle Layer', desc: 'Slot the 4 belt edges into their left or right positions.' },
+    { title: 'Yellow Cross', desc: 'Form the top yellow cross using F U R U\' R\' F\'.' },
+    { title: 'Crossed Yellow Side Matching', desc: 'Align side edge colors with centers using U R U R\' U R U2 R\'.' },
+    { title: 'Corner Setting', desc: 'Cycle top layer corners into their correct places with U R U\' L\' U R\' U\' L.' },
+    { title: 'Orienting Yellow Corners', desc: 'Repeat R\' B\' R B until corner yellow faces UP, rotating only the top layer.' },
+    { title: 'Cube Solved!', desc: 'Turn the top layer to match side colors and the entire cube is complete!' },
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-fade-in">
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl relative space-y-4">
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-        >
-          <X className="w-5 h-5" />
-        </button>
-
-        <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">
-          How This Guide Works
-        </h3>
-
-        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          This website is your interactive personal tutor. Rather than memorizing confusing diagrams from a sheet of paper, you follow 9 guided steps while watching the 3D cube perform each move in real-time.
-        </p>
-
-        <div className="space-y-2.5 pt-2">
-          {stepsOverview.map((item, idx) => (
-            <div key={idx} className="flex items-start gap-3 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200/80 dark:border-slate-800">
-              <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-              <div className="text-xs">
-                <span className="font-bold text-slate-800 dark:text-slate-200 block">
-                  {idx + 1}. {item.title}
-                </span>
-                <span className="text-slate-500 dark:text-slate-400 mt-0.5 block">
-                  {item.desc}
-                </span>
-              </div>
-            </div>
-          ))}
+    <div
+      className="w3-modal-backdrop"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="howitworks-modal-title"
+    >
+      <div
+        className="w3-modal-dialog"
+        onClick={e => e.stopPropagation()}
+      >
+        {/* Exact Black Header */}
+        <div className="w3-modal-header">
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <HelpCircle style={{ width: 18, height: 18, color: '#04AA6D' }} />
+            <span id="howitworks-modal-title" className="w3-modal-title">
+              How This Beginner Method Works
+            </span>
+          </div>
+          <button
+            onClick={onClose}
+            className="w3-modal-close"
+            title="Close dialog (Esc)"
+            aria-label="Close dialog"
+          >
+            <X style={{ width: 20, height: 20 }} />
+          </button>
         </div>
 
-        <div className="pt-3 flex items-center justify-end gap-2">
-          <button
-            onClick={() => {
-              onClose();
-              onStartSolving();
-            }}
-            className="flex items-center gap-2 px-5 py-2.5 bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs rounded-xl shadow-md transition-all active:scale-95"
-          >
-            <span>Start Solving Now</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
+        {/* Modal Content */}
+        <div className="w3-modal-content">
+          <p className="w3-modal-lead">
+            This tutorial teaches the foundational <strong>Layer-by-Layer (LBL)</strong> method for solving the 3×3 Rubik's Cube. Follow each step sequentially:
+          </p>
+
+          <div className="w3-steps-overview-list">
+            {stepsOverview.map((item, idx) => (
+              <div key={idx} className="w3-step-overview-item">
+                <CheckCircle2 style={{ width: 16, height: 16, color: '#04AA6D', flexShrink: 0, marginTop: 2 }} />
+                <div>
+                  <div className="w3-step-overview-title">
+                    Step {idx + 1}: {item.title}
+                  </div>
+                  <div className="w3-step-overview-desc">{item.desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="w3-modal-footer">
+            <button
+              onClick={() => {
+                onClose();
+                onStartSolving();
+              }}
+              className="w3-btn w3-btn-run"
+              style={{ padding: '8px 20px', fontSize: 14 }}
+            >
+              <span>Start Solving Now</span>
+              <ArrowRight style={{ width: 16, height: 16 }} />
+            </button>
+          </div>
         </div>
       </div>
     </div>

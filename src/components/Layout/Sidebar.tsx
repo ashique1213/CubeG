@@ -1,113 +1,48 @@
 import React from 'react';
-import { RotateCcw, Sliders, BookOpen, Box } from 'lucide-react';
 import { SolvingStep } from '../../cube/types';
 
 interface SidebarProps {
   steps: SolvingStep[];
   currentStepId: number;
-  isAnimating: boolean;
   onSelectStep: (id: number) => void;
   isMobileOpen: boolean;
-  onToggle: () => void;
-  isManualControlsOpen: boolean;
-  onResetStep: () => void;
-  onToggleManualControls: () => void;
-  onOpenNotation: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
   steps,
   currentStepId,
-  isAnimating,
   onSelectStep,
   isMobileOpen,
-  isManualControlsOpen,
-  onResetStep,
-  onToggleManualControls,
-  onOpenNotation,
 }) => {
   return (
-    <nav className={`sidebar select-none${isMobileOpen ? ' mobile-open' : ''}`}>
-      {/* Brand */}
-      <div className="sidebar-brand">
-        <div className="sidebar-brand-icon">
-          <Box style={{ width: 16, height: 16, color: '#fff' }} />
-        </div>
-        <div>
-          <div className="sidebar-brand-name">CubeGuide</div>
-          <div className="sidebar-brand-sub">3×3 Beginner Method</div>
-        </div>
+    <aside className={`w3-sidebar${isMobileOpen ? ' w3-sidebar-open' : ''}`}>
+      <div className="w3-sidebar-header">
+        <h2 className="w3-sidebar-title">Cube 3×3 Tutorial</h2>
       </div>
 
-      <div className="sidebar-section-title">Guide Contents</div>
-      <div className="sidebar-divider" />
-
-      {/* Step list */}
-      <div className="sidebar-steps">
+      <div className="w3-sidebar-list">
         {steps.map(step => {
           const isCurrent = step.id === currentStepId;
           const isCompleted = step.id < currentStepId;
+
           return (
             <button
               key={step.id}
-              disabled={isAnimating}
               onClick={() => onSelectStep(step.id)}
-              className={`sidebar-step-btn${isCurrent ? ' active' : ''}${isCompleted ? ' completed' : ''}`}
+              className={`w3-sidebar-item${isCurrent ? ' w3-active' : ''}${isCompleted ? ' w3-completed' : ''}`}
             >
-              <span className="sidebar-step-dot" />
-              <span>
-                <span className="sidebar-step-label">Step {step.id} — </span>
-                {step.title}
-              </span>
+              <span className="w3-sidebar-step-num">Step {step.id}:</span>
+              <span className="w3-sidebar-step-text">{step.title}</span>
             </button>
           );
         })}
       </div>
 
-      {/* Bottom actions */}
-      <div className="sidebar-divider" />
-      <div className="sidebar-actions">
-        <button
-          disabled={isAnimating}
-          onClick={onResetStep}
-          className="sidebar-action-btn"
-          title="Reset current step"
-        >
-          <RotateCcw style={{ width: 13, height: 13 }} />
-          Reset Step
-        </button>
-
-        <button
-          onClick={onToggleManualControls}
-          className={`sidebar-action-btn${isManualControlsOpen ? ' active' : ''}`}
-          title="Manual Moves"
-        >
-          <Sliders style={{ width: 13, height: 13 }} />
-          Manual Moves
-        </button>
-
-        <button
-          onClick={onOpenNotation}
-          className="sidebar-action-btn"
-          title="Notation Reference"
-        >
-          <BookOpen style={{ width: 13, height: 13 }} />
-          Notation
-        </button>
+      <div className="w3-sidebar-footer">
+        <div className="w3-footer-brand">
+          CubeG &bull; Beginner Method
+        </div>
       </div>
-
-      <div className="sidebar-divider" />
-      <div className="sidebar-footer">
-        <span>Powered by </span>
-        <a
-          href="https://questacksolutions.vercel.app"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="sidebar-footer-link"
-        >
-          QueStack Solutions
-        </a>
-      </div>
-    </nav>
+    </aside>
   );
 };

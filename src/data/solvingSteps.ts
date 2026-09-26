@@ -91,100 +91,98 @@ export const SOLVING_STEPS: SolvingStep[] = [
     orientation: "Keep Yellow on Top",
     instructions: [
       "Look at the yellow pieces on the top face (ignore the corners for now).",
-      "You will see one of 3 patterns: Dot, 'L' shape, or Horizontal Line.",
+      "You will see one of 3 patterns: Center Dot, 'L' shape, or Horizontal Line.",
       "If you see an 'L', position it at the top-left (9 and 12 o'clock).",
       "If you see a Line, keep it horizontal (9 and 3 o'clock).",
-      "Apply the algorithm: F U R U' R' F'. Repeat until you get the Yellow Cross!"
+      "Apply the algorithm: F R U R' U' F'. Repeat until you get the Yellow Cross!"
     ],
-    algorithm: "F U R U' R' F'",
-    moves: ["F", "U", "R", "U'", "R'", "F'"],
-    diagramTitle: "Yellow Pattern Progression:",
+    algorithm: "F R U R' U' F'",
+    moves: ["F", "R", "U", "R'", "U'", "F'"],
+    diagramTitle: "Yellow Pattern Progression & Move Sequence:",
     diagramType: "yellow-progression",
     tips: [
-      "Mnemonic: 'FUR - URF prime' (F, then U R U' R', then F').",
+      "Formula: F, then Right-hand trigger (R U R' U'), then F'.",
       "Never rotate the cube during the algorithm; keep the front face facing you."
     ]
   },
   {
     id: 6,
-    title: "Full Yellow Face — Fish Shape",
+    title: "Crossed Yellow Side Colour Matching",
     subtitle: "Step 6 of 9",
-    orientation: "Keep Yellow on Top (Fish nose pointing bottom-left)",
+    orientation: "Keep Yellow on Top",
     instructions: [
-      "Once the yellow cross is formed, observe the yellow corners.",
-      "When exactly one corner is oriented, it creates a 'Fish' shape.",
-      "Turn the top layer so the fish's nose (the yellow corner) points toward the BOTTOM-LEFT.",
-      "Execute the Sune algorithm: R U R' U R U2 R'.",
-      "The entire top face will turn completely yellow!"
+      "After forming the yellow cross, check the side edge colors on the top layer.",
+      "Rotate the top layer (U) to align as many side edge colors as possible with their adjacent center faces.",
+      "Execute the top layer edge alignment algorithm: U R U R' U R U2 R'.",
+      "Repeat until all 4 crossed yellow side colors match their center faces!"
     ],
-    algorithm: "R U R' U R U2 R'",
-    moves: ["R", "U", "R'", "U", "R", "U2", "R'"],
-    diagramTitle: "Fish Shape pointing to Bottom-Left:",
-    diagramType: "fish",
+    algorithm: "U R U R' U R U2 R'",
+    moves: ["U", "R", "U", "R'", "U", "R", "U2", "R'"],
+    diagramTitle: "Crossed Yellow Side Edge Alignment:",
+    diagramType: "side-matching",
     tips: [
-      "If you have 0 or 2 yellow corners, perform this algorithm once, re-orient the fish to bottom-left, and do it again.",
-      "Watch how R and U dance together: Up, Left, Down, Left, Up, Double-turn, Down."
+      "Not yellow face fishshape — this step aligns crossed yellow side colors.",
+      "Algorithm sequence: Top layer U, then Right Up, Top Left, Right Down, Top Left, Right Up, Top Double Turn (U2), Right Down."
     ]
   },
   {
     id: 7,
-    title: "Position Yellow Corners",
+    title: "Corner Setting (Matching Corner Color)",
     subtitle: "Step 7 of 9",
-    orientation: "Yellow on Top (Matching headlights at the Back)",
+    orientation: "Keep Yellow on Top (Matching Corner at Front-Right)",
     instructions: [
-      "Look at the corners of the top layer.",
-      "Find two corners on the same side that share the same color (these are called 'Headlights').",
-      "Rotate the top layer so the headlights match their center color and place them at the BACK (B face).",
-      "If no headlights exist, do the algorithm once from any angle to create them.",
-      "Execute the A-Perm algorithm to position all 4 corners."
+      "Look at the 4 top layer corners to find any corner piece that is in its correct place (matching adjacent center colors).",
+      "Position that matching corner at the Top Front-Right position.",
+      "If no corner matches, perform the algorithm once from any angle to get a matching corner.",
+      "Execute the corner setting algorithm: U R U' L' U R' U' L.",
+      "Repeat until all 4 top layer corners are in their matching corner locations."
     ],
-    algorithm: "R' F R' B2 R F' R' B2 R2",
-    moves: ["R'", "F", "R'", "B2", "R", "F'", "R'", "B2", "R2"],
-    diagramTitle: "Headlights positioned at the Back:",
-    diagramType: "headlights",
+    algorithm: "U R U' L' U R' U' L",
+    moves: ["U", "R", "U'", "L'", "U", "R'", "U'", "L"],
+    diagramTitle: "Top Layer Corner Setting:",
+    diagramType: "corner-matching",
     tips: [
-      "Headlights mean two corner stickers on the same face have the identical color.",
-      "Notice B2 is a 180° rotation of the back face."
+      "Corner setting matches corner colors on the top layer.",
+      "Algorithm: U, R, U', L', U, R', U', L."
     ]
   },
   {
     id: 8,
-    title: "Position Yellow Edges / Finish",
+    title: "Orienting Yellow Corners (R' B' R B)",
     subtitle: "Step 8 of 9",
-    orientation: "Yellow on Top (Fully solved face placed at the Back)",
+    orientation: "Keep Yellow on Top (Unsolved Corner at Front-Right)",
     instructions: [
-      "All 4 corners are now in place. Only 3 or 4 edges need to swap.",
-      "If one side is already completely solved, place that solved side at the BACK.",
-      "Look at the remaining 3 edges: they need to cycle clockwise or counter-clockwise.",
-      "Execute the final algorithm: R2 U R U R' U' R' U' R' U R'."
+      "Hold the cube with Yellow on top and place an unsolved corner at the Front-Right position.",
+      "Execute the 4-move corner orientation algorithm: R' B' R B.",
+      "R' = Right down, B' = Bottom to left, R = Right up, B = Bottom to right.",
+      "Repeat R' B' R B (usually 2 or 4 times) until the yellow sticker of that front-right corner faces directly UP.",
+      "Rotate ONLY the top layer (U) to bring the next unsolved corner to the front-right position, then repeat R' B' R B."
     ],
-    algorithm: "R2 U R U R' U' R' U' R' U R'",
-    moves: ["R2", "U", "R", "U", "R'", "U'", "R'", "U'", "R'", "U", "R'"],
-    diagramTitle: "Cycling the 3 remaining edges:",
-    diagramType: "edges",
+    algorithm: "R' B' R B",
+    moves: ["R'", "B'", "R", "B", "R'", "B'", "R", "B"],
+    diagramTitle: "Setting Corner Yellow:",
+    diagramType: "yellow-corners",
     tips: [
-      "If all 4 edges need swapping, execute this algorithm once to solve one side, put that side at the back, and do it one more time.",
-      "Watch the layers lock into place as the last turn completes!"
+      "R' (Right down), B' (Bottom to left), R (Right up), B (Bottom to right).",
+      "CRITICAL: Do NOT rotate the full cube between corners—turn ONLY the top layer (U) to bring the next corner to the front-right!"
     ]
   },
   {
     id: 9,
-    title: "Cube Solved!",
+    title: "Final Stage: Top Yellow Solved & Cube Complete!",
     subtitle: "Step 9 of 9",
-    orientation: "Any Orientation — Admire Your Work!",
+    orientation: "All Faces Solved — Congratulations!",
     instructions: [
-      "CONGRATULATIONS! You have successfully solved the 3×3 Rubik's Cube!",
-      "You have mastered the foundational layer-by-layer method:",
-      "1. Daisy → 2. White Cross → 3. First Layer Corners → 4. Middle Layer",
-      "5. Yellow Cross → 6. Yellow Face → 7. Yellow Corners → 8. Yellow Edges!",
-      "Click 'Solve Again' anytime to reset and practice each step until you can do it by heart."
+      "Once all yellow corners face UP, turn the top layer (U) to align the top layer colors with their matching side centers.",
+      "Correspondingly, the entire 3×3 Rubik's Cube will be completely solved!",
+      "CONGRATULATIONS! You have successfully mastered the complete Rubik's Cube solving method!"
     ],
     moves: [],
-    diagramTitle: "Full Solved 3×3 Rubik's Cube",
+    diagramTitle: "Entire Cube Solved!",
     diagramType: "solved",
     tips: [
-      "Repetition builds muscle memory: practice each trigger (R U R' U') 10 times a day.",
-      "Show off your new superpower to family and friends!"
+      "Mastered 9 Steps: 1. Daisy → 2. White Cross → 3. White Corners → 4. Middle Layer → 5. Yellow Cross → 6. Side Matching → 7. Corner Setting → 8. R' B' R B → 9. Solved Cube!",
+      "Click 'Solve Again' anytime to practice each step until you can solve it by heart!"
     ]
   }
 ];

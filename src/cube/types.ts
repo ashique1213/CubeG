@@ -44,7 +44,7 @@ export interface SolvingStep {
   moves: MoveNotation[];
   orientation: string;
   diagramTitle?: string;
-  diagramType?: 'daisy' | 'bottom-cross' | 'corners' | 'middle-layer' | 'yellow-progression' | 'fish' | 'headlights' | 'edges' | 'solved';
+  diagramType?: 'daisy' | 'bottom-cross' | 'corners' | 'middle-layer' | 'yellow-progression' | 'fish' | 'headlights' | 'edges' | 'solved' | 'side-matching' | 'corner-matching' | 'yellow-corners';
   tips?: string[];
   initialMovesToSetup?: MoveNotation[]; // moves applied from solved state or custom state
   highlightPieces?: (piece: PieceState) => boolean;
